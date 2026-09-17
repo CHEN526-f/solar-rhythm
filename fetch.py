@@ -8,20 +8,26 @@ Fetch the numbers once, save the raw reply to data/, and never fetch again.
 
     uv run fetch.py
 
-Change URL and FILE. The default is the Hong Kong Observatory's daily mean
-temperature for 2026, so the template runs before you have touched it and you
-can see what a file looks like when it arrives. It is an example, not your
-phenomenon: handing it in unchanged is handing in nothing.
+Fetch NASA POWER's daily solar-radiation data for Hong Kong in 2025.  This is
+the raw source file for the ``solar-rhythm`` project; the plotting script must
+read this committed file rather than make another network request.
 """
 
 from pathlib import Path
 
 import requests
 
-URL = ("https://data.weather.gov.hk/weatherAPI/opendata/opendata.php"
-       "?dataType=CLMTEMP&rformat=csv&station=HKO&year=2026")      # CHANGE ME
-FILE = "hko-daily-mean-temperature-2026.csv"                          # CHANGE ME: say what it is,
-                                                                      # keep the publisher's extension
+URL = (
+    "https://power.larc.nasa.gov/api/temporal/daily/point"
+    "?parameters=ALLSKY_SFC_SW_DWN"
+    "&community=RE"
+    "&longitude=114.1694"
+    "&latitude=22.3193"
+    "&start=20250101"
+    "&end=20251231"
+    "&format=CSV"
+)
+FILE = "nasa-power-hong-kong-daily-solar-radiation-2025.csv"
 HERE = Path(__file__).parent
 DATA = HERE / "data"
 

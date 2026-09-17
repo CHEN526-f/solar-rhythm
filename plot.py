@@ -18,7 +18,7 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 
-FILE = "hko-daily-mean-temperature-2026.csv"   # CHANGE ME: the same name as in fetch.py
+FILE = "nasa-power-hong-kong-daily-solar-radiation-2025.csv"   # CHANGE ME: the same name as in fetch.py
 PICTURE = "plot.png"                           # what goes into out/, and into the README
 
 HERE = Path(__file__).parent
@@ -43,8 +43,8 @@ def main():
     print(f"{DATA.name}: {len(table)} rows. The first one: {table[0]}")
 
     days, values = [], []
-    for i, (year, month, day, value, quality) in enumerate(table):   # the loop over the numbers
-        if value == "***":                   # the Observatory's word for "missing"
+    for i, (year, month, day, value) in enumerate(table):   # the loop over the numbers
+        if value == "-999":                   # the Observatory's word for "missing"
             continue
         days.append(i + 1)
         values.append(float(value))          # it arrived as text; make it a number
@@ -52,9 +52,9 @@ def main():
 
     fig, ax = plt.subplots(figsize=(10, 4))
     ax.plot(days, values, color="#d6591d", linewidth=1.5)
-    ax.set_xlabel("day of 2026")
-    ax.set_ylabel("daily mean temperature, °C")
-    ax.set_title("Hong Kong Observatory, 2026 so far")
+    ax.set_xlabel("day of 2025")
+    ax.set_ylabel("daily solar radiation (kWh/m²/day)")
+    ax.set_title("Daily solar radiation in Hong Kong, 2025")
     fig.tight_layout()
 
     OUT.mkdir(exist_ok=True)
