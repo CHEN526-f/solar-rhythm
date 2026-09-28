@@ -1,34 +1,24 @@
-# The phenomenon
+# Hong Kong solar rhythm
 
-<!-- This is the SD5913 assignment 2 template. Everything in this file is yours to
-replace, and the check counts words: comments like this one are not words, so
-delete each one as you write. Start with the heading: name the phenomenon.
-
-Then, in this order, at least 150 words in total.
-
-New to folders, paths, or the files here whose names start with a dot? Read
-https://github.com/sd5913/pfad/blob/2026/reference/files.md first. Ten minutes. -->
-
-![what the picture is](out/plot.png)
+![A circular sunlight artwork for Hong Kong in 2025](out/solar-rhythm.png)
 
 ## The phenomenon
 
-<!-- What goes up and down, and why you looked at it. -->
+Sunlight changes across a year, but the change is not a smooth climb from winter to summer and back again. Cloud, rain, haze, and weather systems make neighbouring days very different. This project follows the daily solar radiation received near Hong Kong throughout 2025. I chose this phenomenon because it connects a familiar local place to a cycle that is both seasonal and irregular. Instead of treating the year as a straight line, the picture treats it as one complete turn. January begins at the top of the circle and the days move clockwise until December returns to the starting point.
 
 ## The source
 
-<!-- A link to the page or endpoint the file came from, and one line on what is in
-the file: how many rows, what a row means, what the units are. -->
+The raw data comes from the [NASA POWER daily point API](https://power.larc.nasa.gov/api/temporal/daily/point?parameters=ALLSKY_SFC_SW_DWN&community=RE&longitude=114.1694&latitude=22.3193&start=20250101&end=20251231&format=CSV). It supplies the `ALLSKY_SFC_SW_DWN` measure for latitude 22.3193 and longitude 114.1694, close to Hong Kong. The committed CSV contains 365 daily rows. Each row gives a year, month, day, and the daily all-sky surface shortwave downward irradiance in kWh/m²/day. `fetch.py` downloads the reply once and saves it unchanged in `data/`; `plot.py` works from that saved file, so the visualisation can be reproduced offline.
 
 ## What the picture shows
 
-<!-- Two or three sentences. Including what it hides: every transformation throws
-something away, and naming what yours threw away is the easiest way to sound like
-you know what you did. -->
+The image is a radial calendar and a data artwork. Every ray represents one recorded day. Its position represents the date, while both its length and its colour represent solar radiation: shorter blue rays are lower-radiation days, and longer gold rays are higher-radiation days. The calendar rings and month labels make the annual cycle visible, while the bright clusters reveal periods when many high-radiation days occurred together. The picture makes seasonal rhythm and sudden daily variation easy to notice.
+
+It hides some things deliberately. The ray lengths are scaled between the lowest and highest recorded values, so they are not a direct radial physical scale. A reader cannot precisely compare two close values without the colour scale, and the image does not explain why a particular day was cloudy or bright. It also represents one NASA POWER location estimate rather than every place in Hong Kong.
 
 ## Run it
 
-```
+```powershell
 uv run fetch.py
 uv run plot.py
 ```
